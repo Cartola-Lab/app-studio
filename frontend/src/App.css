@@ -1,34 +1,163 @@
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+/* Cartola Lab Studio - Main Styles */
+
+/* Global Resets */
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+/* Animation for streaming cursor */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
-.App-link {
-    color: #61dafb;
+.streaming-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 16px;
+  background-color: #19AFFF;
+  animation: blink 1s infinite;
+  margin-left: 2px;
+  vertical-align: middle;
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+/* Button hover lift effect */
+.btn-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-lift:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(25, 175, 255, 0.15);
+}
+
+/* Preview frame transitions */
+.preview-frame {
+  transition: max-width 0.3s ease, height 0.3s ease;
+}
+
+/* Prose overrides for markdown */
+.prose {
+  color: #EDEDED;
+}
+
+.prose code {
+  color: #19AFFF;
+  background: #0A0A0A;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+}
+
+.prose pre {
+  background: #0A0A0A;
+  border: 1px solid #22222A;
+}
+
+.prose strong {
+  color: #EDEDED;
+}
+
+.prose a {
+  color: #19AFFF;
+}
+
+.prose a:hover {
+  color: #40BDFF;
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4 {
+  color: #EDEDED;
+}
+
+.prose ul, .prose ol {
+  color: #A0A0AB;
+}
+
+.prose blockquote {
+  border-left-color: #19AFFF;
+  color: #A0A0AB;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #22222A;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2B2B36;
+}
+
+/* Panel resize handle */
+[data-panel-resize-handle-id] {
+  position: relative;
+}
+
+[data-panel-resize-handle-id]::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 4px;
+  height: 40px;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity 0.2s;
+  border-radius: 2px;
+}
+
+[data-panel-resize-handle-id]:hover::after,
+[data-panel-resize-handle-id]:active::after {
+  opacity: 0.3;
+}
+
+/* Toast notification overrides */
+[data-sonner-toast] {
+  font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Dialog backdrop */
+[data-radix-dialog-overlay] {
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+}
+
+/* Tooltip styling */
+[role="tooltip"] {
+  font-size: 12px;
+}
+
+/* Focus visible outlines */
+:focus-visible {
+  outline: 2px solid #19AFFF;
+  outline-offset: 2px;
+}
+
+/* Selection color */
+::selection {
+  background-color: rgba(25, 175, 255, 0.3);
+  color: #EDEDED;
+}
+
+/* Kbd styling */
+kbd {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
 }
