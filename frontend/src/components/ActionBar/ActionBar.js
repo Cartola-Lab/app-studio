@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useStudio } from '../../context/StudioContext';
 import { createTask } from '../../services/paperclipApi';
 import { exportAsZip } from '../../utils/exportZip';
+import { GitHubButton } from './GitHubButton';
 import { Button } from '../ui/button';
 import { 
   Dialog,
@@ -93,6 +94,8 @@ export function ActionBar() {
             )}
             Export
           </Button>
+
+          <GitHubButton />
 
           <Button
             data-testid="approve-task-btn"

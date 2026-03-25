@@ -1,7 +1,9 @@
 import React from 'react';
 import { useStudio } from '../context/StudioContext';
+import { useGitHub } from '../hooks/useGitHub';
 import { Button } from './ui/button';
-import { Settings, Plus, Sparkles } from 'lucide-react';
+import { Settings, Plus, Sparkles, Github, LogOut } from 'lucide-react';
+import { Avatar, AvatarImage, AvatarFallback } from './ui/avatar';
 import {
   Dialog,
   DialogContent,
@@ -13,6 +15,7 @@ const LOGO_URL = 'https://static.prod-images.emergentagent.com/jobs/a95524e6-8d5
 
 export function Header() {
   const { state, newSession, toggleSettings, closeSettings } = useStudio();
+  const { user, isConnected, disconnect } = useGitHub();
 
   return (
     <>
@@ -69,6 +72,43 @@ export function Header() {
             <DialogTitle className="text-xl font-semibold">Settings</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-4">
+            {/* GitHub Integration */}
+            <div>
+              <label className="text-sm text-[#A0A0AB] block mb-2">GitHub Integration</label>
+              <div className="p-3 bg-[#0A0A0A] border border-[#22222A] rounded-md">
+                {isConnected && user ? (
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <Avatar className="w-8 h-8">
+                        <AvatarImage src={user.avatar_url} alt={user.login} />
+                        <AvatarFallback className="bg-[#19AFFF]/20 text-[#19AFFF]">
+                          {user.login?.[0]?.toUpperCase()}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <p className="text-sm text-[#EDEDED]">@{user.login}</p>
+                        <p className="text-xs text-[#6A6A75]">Connected</p>
+                      </div>
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={disconnect}
+                      className="text-[#A0A0AB] hover:text-red-400 hover:bg-red-400/10"
+                    >
+                      <LogOut className="w-4 h-4 mr-2" />
+                      Disconnect
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-3 text-[#6A6A75]">
+                    <Github className="w-5 h-5" />
+                    <span className="text-sm">Not connected</span>
+                  </div>
+                )}
+              </div>
+            </div>
+
             <div>
               <label className="text-sm text-[#A0A0AB] block mb-2">API Endpoint</label>
               <div className="p-3 bg-[#0A0A0A] border border-[#22222A] rounded-md text-sm text-[#6A6A75]">

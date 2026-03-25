@@ -1,10 +1,12 @@
 import React, { useState, useCallback } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 import { StudioProvider } from './context/StudioContext';
 import { Header } from './components/Header';
 import { ChatPanel } from './components/ChatPanel';
 import { PreviewPanel } from './components/PreviewPanel';
 import { ActionBar } from './components/ActionBar';
+import { GitHubCallback } from './components/GitHubCallback';
 import { Toaster } from 'sonner';
 import './App.css';
 
@@ -89,9 +91,14 @@ function StudioLayout() {
 
 function App() {
   return (
-    <StudioProvider>
-      <StudioLayout />
-    </StudioProvider>
+    <BrowserRouter>
+      <StudioProvider>
+        <Routes>
+          <Route path="/auth/github/callback" element={<GitHubCallback />} />
+          <Route path="*" element={<StudioLayout />} />
+        </Routes>
+      </StudioProvider>
+    </BrowserRouter>
   );
 }
 
