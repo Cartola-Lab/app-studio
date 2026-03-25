@@ -1,0 +1,157 @@
+{
+  "project_overview": {
+    "name": "Cartola Lab Studio",
+    "description": "A split-panel web application that functions as an AI-powered app creation studio.",
+    "app_type": "saas_app",
+    "primary_persona": "Developers, Makers, Founders"
+  },
+  "theme_and_archetype": {
+    "theme": "dark",
+    "archetype": "Archetype 4 (Swiss & High-Contrast)",
+    "reasoning": "Since this is a developer tool and dashboard, a highly structured, objective, and function-first interface is required. The dark theme reduces eye strain for long coding sessions, and the electric blue accent (#19afff) acts as the kinetic trigger against deep structural grays."
+  },
+  "typography": {
+    "strategy": "The Anti-Default Rule applies. Avoid Inter for headings. Use high-legibility geometric sans for bodies and explicit monospace for technical elements.",
+    "fonts": {
+      "headings": {
+        "family": "Cabinet Grotesk",
+        "weight_strategy": "Radical weight contrast (Light vs Black)",
+        "letter_spacing": "tracking-tight",
+        "sizes": {
+          "h1": "text-2xl sm:text-3xl",
+          "h2": "text-xl sm:text-2xl",
+          "h3": "text-lg",
+          "label": "text-xs tracking-[0.2em] uppercase"
+        }
+      },
+      "body": {
+        "family": "IBM Plex Sans",
+        "weight": "font-normal",
+        "sizes": {
+          "primary": "text-sm",
+          "secondary": "text-xs text-muted-foreground"
+        }
+      },
+      "code_and_terminal": {
+        "family": "JetBrains Mono",
+        "weight": "font-medium",
+        "sizes": {
+          "base": "text-[13px] leading-relaxed"
+        }
+      }
+    }
+  },
+  "colors": {
+    "background": {
+      "base": "#0A0A0A",
+      "panel": "#111115",
+      "surface": "#1A1A20"
+    },
+    "borders": {
+      "subtle": "#22222A",
+      "active": "#19AFFF",
+      "hover": "#2B2B36"
+    },
+    "accent": {
+      "primary": "#19AFFF",
+      "hover": "#40BDFF",
+      "active": "#0E8AD1",
+      "glow": "rgba(25, 175, 255, 0.15)"
+    },
+    "text": {
+      "primary": "#EDEDED",
+      "secondary": "#A0A0AB",
+      "tertiary": "#6A6A75",
+      "on_accent": "#FFFFFF"
+    },
+    "accessibility": {
+      "contrast_requirements": "All text must pass WCAG AA contrast ratio. Use APCA preferred."
+    }
+  },
+  "layout_and_spacing": {
+    "strategy": "The Control Room Grid (For Dashboards/Analytics). Density, Data Correlation, Scanability.",
+    "structure": {
+      "header": "h-14 fixed top border-b border-[#22222A] bg-[#0A0A0A] flex items-center justify-between px-4 z-50",
+      "main_container": "h-screen pt-14 flex flex-row overflow-hidden bg-[#0A0A0A]",
+      "left_panel": "flex-1 flex flex-col min-w-[300px] bg-[#111115] border-r border-[#22222A]",
+      "right_panel": "flex-1 flex flex-col min-w-[300px] bg-[#0A0A0A]",
+      "divider": "w-1 cursor-col-resize hover:bg-[#19AFFF] active:bg-[#19AFFF] transition-colors bg-[#22222A]"
+    },
+    "spacing_scale": {
+      "padding": "p-4, p-6 for containers. Density is key, so avoid massive whitespace inside the chat or code windows."
+    }
+  },
+  "surface_strategies": {
+    "global": "Grid Borders (The Technical Look). Expose the skeleton. No heavy drop shadows. Use 1px borders (#22222A) everywhere to separate panes and toolbars.",
+    "panels": "Flat backgrounds. No glassmorphism inside the developer panels. Solid #111115 and #0A0A0A separation.",
+    "buttons": "Neumorphism is BANNED. Use flat blocks with sharp or slightly rounded corners (rounded-md), subtle border-white/5, and hover color shift.",
+    "chat_bubbles": "AI (BroStorm) bubbles: bg-[#1A1A20] border border-[#22222A] text-[#EDEDED]. User bubbles: bg-[#19AFFF]/10 border border-[#19AFFF]/20 text-[#19AFFF]."
+  },
+  "components": {
+    "header": {
+      "logo": "Left aligned, flex items-center gap-2",
+      "actions": "Right aligned, New Session (Outline button), Settings (Ghost button)"
+    },
+    "chat_panel": {
+      "message_list": "flex-1 overflow-y-auto p-4 space-y-4",
+      "input_area": "p-4 border-t border-[#22222A] bg-[#111115]",
+      "input_field": "Shadcn textarea, resize-none bg-[#0A0A0A] border-[#22222A] focus-visible:ring-1 focus-visible:ring-[#19AFFF]"
+    },
+    "preview_panel": {
+      "action_bar": "h-12 border-b border-[#22222A] flex items-center justify-between px-4 bg-[#111115]",
+      "tabs": "Shadcn Tabs (Preview | Code). Override default rounded-full to rounded-md.",
+      "viewport_selector": "Shadcn Dropdown or ToggleGroup (Desktop, Tablet, Mobile) centered in the action bar.",
+      "preview_iframe": "w-full h-full bg-white transition-all duration-300 mx-auto",
+      "export_btn": "Shadcn Button, Outline, border-[#22222A]"
+    },
+    "approve_task_button": {
+      "style": "bg-[#19AFFF] hover:bg-[#40BDFF] text-white font-medium rounded-md px-4 py-2 flex items-center gap-2 transition-all",
+      "icon": "CheckCircle or Play"
+    }
+  },
+  "motion_and_interactions": {
+    "hover_states": "All interactive elements MUST explicitly set text color and bg on hover. Buttons should lift slightly (-translate-y-0.5) if primary.",
+    "streaming": "AI response streaming should have a blinking cursor block (`w-2 h-4 bg-[#19AFFF] animate-pulse`) at the end of the text.",
+    "divider_drag": "Disable pointer events on the iframe while the divider is being dragged to prevent stuttering."
+  },
+  "media_and_images": {
+    "rules": "NEVER use placeholder URLs. Always use the provided absolute URLs.",
+    "images": [
+      {
+        "category": "logo",
+        "description": "Cartola Lab Studio Logo",
+        "url": "https://static.prod-images.emergentagent.com/jobs/a95524e6-8d57-4a33-859d-6152ef3b48ac/images/2070b10d51be382b528c9736b63433b9f2d0fde90572e8b86fdc5a1b96d57c17.png"
+      },
+      {
+        "category": "avatar_ai",
+        "description": "BroStorm AI Avatar",
+        "url": "https://static.prod-images.emergentagent.com/jobs/a95524e6-8d57-4a33-859d-6152ef3b48ac/images/4af0afd4335574b454a4e79d581adc16fa1dbc777e68934c4cc9938f8310e8d1.png"
+      },
+      {
+        "category": "avatar_user",
+        "description": "User Profile Avatar",
+        "url": "https://static.prod-images.emergentagent.com/jobs/a95524e6-8d57-4a33-859d-6152ef3b48ac/images/93483aa331c10d290f7c4b889e75b84a01c78aeb4381d850792e9809a1b1c52c.png"
+      }
+    ]
+  },
+  "testing": {
+    "attributes": [
+      "data-testid='header-new-session-btn'",
+      "data-testid='chat-input-textarea'",
+      "data-testid='chat-submit-btn'",
+      "data-testid='preview-tab-btn'",
+      "data-testid='code-tab-btn'",
+      "data-testid='viewport-desktop-btn'",
+      "data-testid='viewport-mobile-btn'",
+      "data-testid='approve-task-btn'",
+      "data-testid='export-zip-btn'",
+      "data-testid='split-pane-divider'"
+    ]
+  },
+  "instructions_to_main_agent": {
+    "installation": "Install lucide-react or @phosphor-icons/react. Install framer-motion. Install react-split or equivalent for the resizable pane. Use standard Shadcn UI installations (button, tabs, select, textarea, scroll-area).",
+    "execution_order": "1. Initialize Tailwind with the custom dark colors. 2. Build the Layout shell with Header and Split-Pane. 3. Implement Left Panel (Chat UI, SSE streaming visual logic). 4. Implement Right Panel (Preview/Code toggle, Action Bar). 5. Hook up the viewport dynamic resizing logic by constraining the max-width of the iframe wrapper.",
+    "code_extraction": "Ensure the logic parses the AI response for ```html or ```javascript blocks and pipes them into the iframe srcdoc in real-time.",
+    "crucial_rule": "DO NOT use 'Inter' font for headings. Use the designated typography. Ensure all inputs and buttons have the required data-testid."
+  }
+}
