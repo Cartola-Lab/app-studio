@@ -20,11 +20,37 @@ export function ChatPanel() {
   
   const scrollRef = useRef(null);
   const messagesEndRef = useRef(null);
+  const [initialMessageSent, setInitialMessageSent] = React.useState(false);
 
   // Auto-scroll to bottom on new messages
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [state.messages, state.isStreaming]);
+
+  // Send initial context message if we have Lean Canvas data
+  useEffect(() => {
+    if (state.leanCanvasContext && !initialMessageSent && state.messages.length === 0) {
+      setInitialMessageSent(true);
+      
+      // Create a context summary for BroStorm
+      const lc = state.leanCanvasContext;
+      let contextSummary = "Based on the Lean Canvas you just completed:\n\n";
+      
+      if (lc.problem) contextSummary += `• Problem: ${lc.problem}\n`;
+      if (lc.customerSegments) contextSummary += `• Target Users: ${lc.customerSegments}\n`;
+      if (lc.uniqueValueProposition) contextSummary += `• Unique Value: ${lc.uniqueValueProposition}\n`;
+      if (lc.solution) contextSummary += `• Solution: ${lc.solution}\n`;
+      if (lc.channels) contextSummary += `• Channels: ${lc.channels}\n`;
+      
+      // Add initial assistant message with context
+      addMessage({
+        id: `msg-${Date.now()}`,
+        role: 'assistant',
+        content: `I've reviewed your Lean Canvas. Let me summarize what we're building:\n\n${contextSummary}\nNow let's create a visual prototype. What specific feature should we start with?`,
+        timestamp: new Date()
+      });
+    }
+  }, [state.leanCanvasContext, initialMessageSent, state.messages.length, addMessage]);
 
   const handleSendMessage = async (content) => {
     // Add user message

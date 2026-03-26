@@ -26,7 +26,10 @@ const initialState = {
   createdIdentifier: null,
   
   // Settings
-  settingsOpen: false
+  settingsOpen: false,
+  
+  // Lean Canvas Context
+  leanCanvasContext: null
 };
 
 // Reducer
@@ -91,6 +94,9 @@ function studioReducer(state, action) {
     case 'CLOSE_SETTINGS':
       return { ...state, settingsOpen: false };
     
+    case 'SET_LEAN_CANVAS_CONTEXT':
+      return { ...state, leanCanvasContext: action.payload };
+    
     default:
       return state;
   }
@@ -150,6 +156,10 @@ export function StudioProvider({ children }) {
     
     closeSettings: () => {
       dispatch({ type: 'CLOSE_SETTINGS' });
+    },
+    
+    setLeanCanvasContext: (context) => {
+      dispatch({ type: 'SET_LEAN_CANVAS_CONTEXT', payload: context });
     }
   };
 

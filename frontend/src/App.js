@@ -1,17 +1,31 @@
 import React, { useState, useCallback } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
-import { StudioProvider } from './context/StudioContext';
+import { StudioProvider, useStudio } from './context/StudioContext';
 import { Header } from './components/Header';
 import { ChatPanel } from './components/ChatPanel';
 import { PreviewPanel } from './components/PreviewPanel';
 import { ActionBar } from './components/ActionBar';
 import { GitHubCallback } from './components/GitHubCallback';
+import LeanCanvasTerminal from './pages/LeanCanvasTerminal';
 import { Toaster } from 'sonner';
 import './App.css';
 
 function StudioLayout() {
   const [isDragging, setIsDragging] = useState(false);
+  const location = useLocation();
+  const { setLeanCanvasContext } = useStudio();
+
+  // Get Lean Canvas data from navigation state
+  const leanCanvasData = location.state?.leanCanvas;
+  const skippedCanvas = location.state?.skipped;
+
+  // Set context on mount if we have lean canvas data
+  React.useEffect(() => {
+    if (leanCanvasData && !skippedCanvas) {
+      setLeanCanvasContext(leanCanvasData);
+    }
+  }, [leanCanvasData, skippedCanvas, setLeanCanvasContext]);
 
   const handleDragStart = useCallback(() => {
     setIsDragging(true);
@@ -73,18 +87,6 @@ function StudioLayout() {
         {/* Action Bar */}
         <ActionBar />
       </main>
-
-      {/* Toast Notifications */}
-      <Toaster 
-        position="bottom-right"
-        toastOptions={{
-          style: {
-            background: '#111115',
-            border: '1px solid #22222A',
-            color: '#EDEDED',
-          },
-        }}
-      />
     </div>
   );
 }
@@ -94,9 +96,20 @@ function App() {
     <BrowserRouter>
       <StudioProvider>
         <Routes>
+          <Route path="/" element={<LeanCanvasTerminal />} />
+          <Route path="/studio" element={<StudioLayout />} />
           <Route path="/auth/github/callback" element={<GitHubCallback />} />
-          <Route path="*" element={<StudioLayout />} />
         </Routes>
+        <Toaster 
+          position="bottom-right"
+          toastOptions={{
+            style: {
+              background: '#111115',
+              border: '1px solid #22222A',
+              color: '#EDEDED',
+            },
+          }}
+        />
       </StudioProvider>
     </BrowserRouter>
   );
