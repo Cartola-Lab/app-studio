@@ -1,0 +1,21 @@
+FROM node:20-slim AS builder
+
+WORKDIR /app
+
+COPY frontend/package.json ./
+COPY frontend/yarn.lock* ./
+RUN yarn install 2>/dev/null || yarn install
+
+COPY frontend/ .
+
+# Vazio = usa origin relativo, Nginx proxia /api para backend
+ENV REACT_APP_BACKEND_URL=
+
+RUN yarn build
+
+FROM nginx:alpine
+
+COPY --from=builder /app/build /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80

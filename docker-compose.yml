@@ -1,0 +1,44 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: app-studio-mongo
+    restart: unless-stopped
+    volumes:
+      - app-studio-mongo-data:/data/db
+    networks:
+      - app-studio-net
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: app-studio-backend
+    restart: unless-stopped
+    environment:
+      - MONGO_URL=mongodb://mongo:27017
+      - DB_NAME=app_studio
+      - CORS_ORIGINS=https://studio.cartolab.co,http://localhost:3200
+    depends_on:
+      - mongo
+    networks:
+      - app-studio-net
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: app-studio-frontend
+    restart: unless-stopped
+    ports:
+      - "3201:80"
+    depends_on:
+      - backend
+    networks:
+      - app-studio-net
+
+networks:
+  app-studio-net:
+    driver: bridge
+
+volumes:
+  app-studio-mongo-data:
