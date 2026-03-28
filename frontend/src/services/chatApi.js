@@ -1,7 +1,21 @@
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
+const PROVIDER_KEY = 'cartolab_ai_provider';
+const KEY_STORAGE = {
+  claude: 'cartolab_claude_key',
+  openai: 'cartolab_openai_key',
+  gemini: 'cartolab_gemini_key',
+};
+
+function getProviderSettings() {
+  const provider = localStorage.getItem(PROVIDER_KEY) || 'claude';
+  const apiKey = localStorage.getItem(KEY_STORAGE[provider]) || undefined;
+  return { provider, apiKey };
+}
+
 // Stream chat messages from the API
 export async function streamChat(messages, sessionId, onChunk, onComplete, onError) {
+  const { provider, apiKey } = getProviderSettings();
   try {
     const response = await fetch(`${API_URL}/api/chat`, {
       method: 'POST',
@@ -13,7 +27,9 @@ export async function streamChat(messages, sessionId, onChunk, onComplete, onErr
           role: m.role,
           content: m.content
         })),
-        session_id: sessionId
+        session_id: sessionId,
+        provider,
+        user_api_key: apiKey,
       })
     });
 
