@@ -17,15 +17,7 @@ import { Toaster } from 'sonner';
 import './App.css';
 
 function ProtectedRoute({ children }) {
-  const { isAuthenticated, loading } = useAuth();
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center">
-        <div className="text-[#555] text-sm">Carregando...</div>
-      </div>
-    );
-  }
-  return isAuthenticated ? children : <Navigate to="/login" replace />;
+  return children;
 }
 
 function StudioLayout() {
@@ -123,7 +115,7 @@ function App() {
             />
 
             {/* Fallback */}
-            <Route path="*" element={<Navigate to="/dashboard" replace />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
           <Toaster
             position="bottom-right"
