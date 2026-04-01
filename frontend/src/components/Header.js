@@ -11,7 +11,7 @@ import {
   DialogTitle,
 } from './ui/dialog';
 
-const LOGO_URL = 'https://static.prod-images.emergentagent.com/jobs/a95524e6-8d57-4a33-859d-6152ef3b48ac/images/2070b10d51be382b528c9736b63433b9f2d0fde90572e8b86fdc5a1b96d57c17.png';
+const LOGO_URL = '/logo-cartola.png';
 
 export function Header() {
   const { state, newSession, toggleSettings, closeSettings } = useStudio();
