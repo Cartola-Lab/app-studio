@@ -109,7 +109,7 @@ function App() {
               path="/"
               element={
                 <ProtectedRoute>
-                  <LeanCanvasTerminal />
+                  <StudioLayout />
                 </ProtectedRoute>
               }
             />
